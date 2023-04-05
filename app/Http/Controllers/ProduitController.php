@@ -18,9 +18,11 @@ class ProduitController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function indexView()
     {
-        //
+        $products=Produit::all();
+
+        return view('produit',$products);
     }
 
     /**
