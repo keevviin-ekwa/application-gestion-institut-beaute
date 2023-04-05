@@ -296,18 +296,18 @@ return [
         [
             'text' => 'Tableau de bord',
             'url'  => '/',
-            'icon' => 'fas fa-fw fa-gauge',
+            'icon' => 'fas fa-fw  fa-grid-horizontal',
         ],
 
         [
             'text' => 'Employes',
-            'url'  => 'admin/employes',
+            'url'  => 'admin/utilisateurs/employes',
             'icon' => 'fas fa-fw fa-user',
         ],
 
         [
             'text' => 'Clients',
-            'url'  => 'admin/clients',
+            'url'  => 'admin/utilisateurs/clients',
             'icon' => 'fas fa-fw fa-user',
         ],
 
@@ -320,6 +320,12 @@ return [
         [
             'text' => 'Prestation',
             'url'  => 'admin/prestation',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+
+        [
+            'text' => 'Reservations',
+            'url'  => 'admin/reservation',
             'icon' => 'fas fa-fw fa-user',
         ],
 
@@ -358,6 +364,11 @@ return [
                 ],
 
             ],
+        ],
+        [
+            'text' => 'Paiements',
+            'url'  => 'admin/paiements',
+            'icon' => 'fas fa-fw fa-money-bill',
         ],
 
     ],

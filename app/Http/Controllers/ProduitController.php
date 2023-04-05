@@ -15,14 +15,21 @@ class ProduitController extends Controller
         return Produit::all();
     }
 
+
+    public function create()
+    {
+        // $products=Produit::all();
+        return view('Produits.produit-add');
+    }
+
     /**
      * Show the form for creating a new resource.
      */
     public function indexView()
     {
-        $products=Produit::all();
+       // $products=Produit::all();
 
-        return view('produit',$products);
+        return view('produit');
     }
 
     /**

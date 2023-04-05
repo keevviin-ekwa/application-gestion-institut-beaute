@@ -20,9 +20,9 @@ class TypeProduitController extends Controller
      */
     public function indexView()
     {
-        $typeProduits=TypeProduit::all();
+       // $typeProduits=TypeProduit::all();
 
-        return view('typeproduit',$typeProduits);
+        return view('typeproduit');
     }
 
     /**
