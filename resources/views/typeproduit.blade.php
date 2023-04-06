@@ -4,6 +4,7 @@
 @section('content_header')
 
 <h1>Liste des produits</h1>
+
 @stop
 
 @section('content')
@@ -12,9 +13,10 @@
        <div>
            <x-adminlte-modal id="modal" title="Noveau type de produit" theme="primary"
                              icon="fas fa-bolt" size='lg' enable-animations>
-               <form action="" class="form-group" >
+               <form action="{{route("create-type-produit")}}" class="form-group" method="post" >
                    <div class="d-flex flex-column justify-content-center">
-                       <x-adminlte-input name="iLabel" label="Libelle" placeholder="Libelle"
+                       @csrf
+                       <x-adminlte-input name="libelle" label="Libelle" placeholder="Libelle"
                                           disable-feedback/>
                        <x-adminlte-button label="Enregistrer" type="submit"/>
                    </div>
@@ -52,11 +54,18 @@
            ];
        @endphp
 
+
+      @if(session('success'))
+           <x-adminlte-alert theme="success" title="Success">
+               {{session('success')}}
+           </x-adminlte-alert>
+      @endif
+
        {{-- Minimal example / fill data using the component slot --}}
        <x-adminlte-datatable  striped hoverable beautify head-theme="light" theme="dark" id="table1" :heads="$heads">
-           @foreach($config['data'] as $row)
+           @foreach($data as $row)
                <tr>
-                   @foreach($row as $cell)
+                   @foreach(array_values($row) as $cell)
                        <td>{!! $cell !!}</td>
                    @endforeach
                </tr>

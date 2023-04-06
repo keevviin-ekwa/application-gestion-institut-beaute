@@ -20,9 +20,10 @@ class TypeProduitController extends Controller
      */
     public function indexView()
     {
-       // $typeProduits=TypeProduit::all();
-
-        return view('typeproduit');
+       $typeProduits=TypeProduit::all();
+       $data=json_decode(json_encode($typeProduits),true);
+       $result=array_values($data);
+        return view('typeproduit',['data'=>$result]);
     }
 
     /**
@@ -30,10 +31,11 @@ class TypeProduitController extends Controller
      */
     public function store(Request $request)
     {
+
         $typeProduit= new TypeProduit();
         $typeProduit->libelle= $request->libelle;
         $typeProduit->save();
-        return $typeProduit;
+        return redirect('admin/typeproduits')->with('success','Type de produit cree avec succes');
     }
 
     /**

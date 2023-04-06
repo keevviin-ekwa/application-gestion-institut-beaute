@@ -27,9 +27,9 @@ class ProduitController extends Controller
      */
     public function indexView()
     {
-       // $products=Produit::all();
+        $products=Produit::all();
 
-        return view('produit');
+        return view('produit',['data'=>$products]);
     }
 
     /**
