@@ -7,18 +7,11 @@ use Illuminate\Http\Request;
 
 class TypeProduitController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        return TypeProduit::all();
-    }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function indexView()
+    public function index()
     {
        $typeProduits=TypeProduit::all();
        $data=json_decode(json_encode($typeProduits),true);

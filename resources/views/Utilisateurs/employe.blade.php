@@ -2,11 +2,11 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Liste des produits</h1>
+    <h1>Employés</h1>
 @stop
 
 @section('content')
-    <div class="d-flex justify-content-end mb-3"><a href="{{route('create-product')}}"><x-adminlte-button data-toggle="modal" data-target="#modal" label="Ajouter" theme="primary" icon="fas fa-add"/></a></div>
+    <div class="d-flex justify-content-end mb-3"><a href="{{route('create-employe')}}"><x-adminlte-button data-toggle="modal" data-target="#modal" label="Ajouter" theme="primary" icon="fas fa-add"/></a></div>
     @php
         $heads = [
              'ID',

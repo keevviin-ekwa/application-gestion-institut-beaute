@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\FournisseurController;
+use App\Http\Controllers\ProduitController;
+use App\Http\Controllers\TypeProduitController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,15 +21,52 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('admin/produits', [\App\Http\Controllers\ProduitController::class,'indexView']);
-Route::get('admin/typeproduits', [\App\Http\Controllers\TypeProduitController::class,'indexView']);
-Route::post('admin/typeproduit/create',[\App\Http\Controllers\TypeProduitController::class,'store'])->name("create-type-produit");
-Route::get('admin/produit/create',[\App\Http\Controllers\ProduitController::class,'create'])->name("create-product");
 
 
-Route::get('admin/utilisateurs/clients',[\App\Http\Controllers\UserController::class,'indexClients']);
-Route::get('admin/utilisateurs/employes',[\App\Http\Controllers\UserController::class,'indexEmployes']);
 
-Route::get('admin/fournisseurs/create',[\App\Http\Controllers\FournisseurController::class,'create'])->name('create-fournisseur');
-Route::get('admin/fournisseurs',[\App\Http\Controllers\FournisseurController::class,'index']);
-Route::post('admin/fournisseurs/store',[\App\Http\Controllers\FournisseurController::class,'store'])->name('store-fournisseur');
+Route::controller(TypeProduitController::class)->prefix('admin')->group(function () {
+
+    Route::get('/produits', 'index');
+    Route::post('/typeproduit/store', 'store')->name('create-type-produit');
+
+});
+
+
+
+
+Route::controller(ProduitController::class)->prefix('admin')->group(function () {
+
+    Route::get('/typeproduits', 'index');
+    Route::get('/produits/create', 'create')->name('create-product');
+    Route::post('/produits/store', 'store')->name('store-produit');
+    Route::get('/produits/edit', 'edit')->name('edit-produit');
+    Route::put('/produits/update', 'store')->name('update-produit');
+});
+
+
+Route::controller(FournisseurController::class)->prefix('admin')->group(function () {
+
+    Route::get('/fournisseurs', 'index');
+    Route::get('/fournisseurs/create', 'create')->name('create-fournisseur');
+    Route::post('/fournisseurs/store', 'store')->name('store-fournisseur');
+    Route::get('/fournisseurs/edit', 'edit')->name('edit-fournisseur');
+    Route::put('/fournisseurs/update', 'store')->name('update-fournisseur');
+});
+
+
+
+
+
+Route::controller(UserController::class)->prefix('admin/utilisateurs')->group(function () {
+
+    Route::get('/clients', 'indexClients');
+    Route::get('/employes', 'indexEmployes');
+    Route::get('/employes/create', 'createEmploye')->name('create-employe');
+    Route::post('/employes/store', 'storeEmploye')->name('store-employe');
+    Route::get('/clients/create', 'createEmploye')->name('create-client');
+    Route::post('/client/store', 'storeClient')->name('store-client');
+    Route::get('/clients/edit', 'editClient')->name('edit-client');
+    Route::put('/client/update', 'udpdateClient')->name('update-client');
+    Route::get('/employes/edit', 'editEmploye')->name('edit-client');
+    Route::put('/employes/update', 'storeUpdate')->name('update-client');
+});
