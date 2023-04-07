@@ -3,7 +3,7 @@
 
 @section('content_header')
     <h1>Liste des produits</h1>
-    {{$data}}
+
 @stop
 
 @section('content')
@@ -59,6 +59,7 @@
     <x-adminlte-datatable striped hoverable beautify head-theme="light" theme="dark" id="table1" :heads="$heads"  :config="$_config"  striped hoverable with-buttons >
         @foreach($config['data'] as $row)
             <tr>
+
                 @foreach($row as $cell)
                     <td>{!! $cell !!}</td>
                 @endforeach
@@ -68,7 +69,7 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+    <link rel="stylesheet" href="/css/admin_custom.css" >
 @stop
 
 @section('js')

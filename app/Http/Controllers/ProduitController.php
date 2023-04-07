@@ -2,34 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Fournisseur;
 use App\Models\Produit;
+use App\Models\TypeProduit;
 use Illuminate\Http\Request;
 
 class ProduitController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        return Produit::all();
-    }
+
 
 
     public function create()
     {
-        // $products=Produit::all();
-        return view('Produits.produit-add');
+        $typeProduit=TypeProduit::all();
+        $fournisseurs= Fournisseur::all();
+        return view('Produits.produit-add',['types'=>$typeProduit,'fournisseurs'=>$fournisseurs]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function indexView()
+    public function index()
     {
         $products=Produit::all();
+        $typeProduit=TypeProduit::all();
 
-        return view('produit',['data'=>$products]);
+        return view('produit',['produits'=>$products,'type'=>$typeProduit]);
     }
 
     /**
@@ -37,6 +35,22 @@ class ProduitController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = Validator::make ($request->all(),[
+            'libelle' => 'required|max:255',
+            'description' => 'nullable|email|unique:fournisseurs',
+            'image' => 'required|max:255',
+            'quantite'=>'required|integer',
+            'quantiteMin'=>'required|integer',
+            'type'=>'required|int',
+            'fournisseur'
+        ]);
+
+        if ($validated->fails()){
+            return view('Fournisseurs.fournisseur-add')
+                ->withErrors($validated)
+                ->withInput();
+        }
+
         $produit= new Produit();
         $produit->save($request->all());
         return $produit;

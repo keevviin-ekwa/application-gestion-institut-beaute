@@ -26,8 +26,8 @@ Route::get('/', function () {
 
 Route::controller(TypeProduitController::class)->prefix('admin')->group(function () {
 
-    Route::get('/produits', 'index');
-    Route::post('/typeproduit/store', 'store')->name('create-type-produit');
+    Route::get('/typeproduits', 'index');
+    Route::post('/typeproduits/store', 'store')->name('create-type-produit');
 
 });
 
@@ -36,7 +36,7 @@ Route::controller(TypeProduitController::class)->prefix('admin')->group(function
 
 Route::controller(ProduitController::class)->prefix('admin')->group(function () {
 
-    Route::get('/typeproduits', 'index');
+    Route::get('/produits', 'index');
     Route::get('/produits/create', 'create')->name('create-product');
     Route::post('/produits/store', 'store')->name('store-produit');
     Route::get('/produits/edit', 'edit')->name('edit-produit');
@@ -67,6 +67,6 @@ Route::controller(UserController::class)->prefix('admin/utilisateurs')->group(fu
     Route::post('/client/store', 'storeClient')->name('store-client');
     Route::get('/clients/edit', 'editClient')->name('edit-client');
     Route::put('/client/update', 'udpdateClient')->name('update-client');
-    Route::get('/employes/edit', 'editEmploye')->name('edit-client');
-    Route::put('/employes/update', 'storeUpdate')->name('update-client');
+    Route::get('/employes/edit', 'editEmploye')->name('edit-employes');
+    Route::put('/employes/update', 'storeUpdate')->name('update-employes');
 });

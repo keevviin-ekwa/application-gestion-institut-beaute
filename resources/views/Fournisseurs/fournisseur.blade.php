@@ -2,7 +2,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Liste des produits</h1>
+    <h1>Fournisseurs</h1>
 
 @stop
 
