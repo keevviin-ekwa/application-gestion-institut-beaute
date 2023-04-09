@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\FournisseurController;
 use App\Http\Controllers\ProduitController;
+use App\Http\Controllers\SoinController;
 use App\Http\Controllers\TypeProduitController;
+use App\Http\Controllers\TypeSoinController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +31,17 @@ Route::controller(TypeProduitController::class)->prefix('admin')->group(function
     Route::get('/typeproduits', 'index');
     Route::post('/typeproduits/store', 'store')->name('create-type-produit');
 
+});
+
+
+
+Route::controller(SoinController::class)->prefix('admin')->group(function () {
+
+    Route::get('/soins', 'index');
+    Route::get('/soins/create', 'create')->name('create-soin');
+    Route::post('/soins/store', 'store')->name('store-soin');
+    Route::get('/soins/edit/{id}', 'edit')->name('edit-soin');
+    Route::put('/soins/update', 'store')->name('update-soin');
 });
 
 
