@@ -6,6 +6,7 @@ use App\Http\Resources\SoinResource;
 use App\Http\Resources\TypeSoinResource;
 use App\Models\Produit;
 use App\Models\Soin;
+use App\Models\TypeProduit;
 use App\Models\TypeSoin;
 use Illuminate\Http\Request;
 
@@ -39,13 +40,18 @@ class SoinController extends Controller
      */
     public function store(Request $request)
     {
+
+
+     //   dd($request->all());
         $soin= new Soin();
         $soin->libelle=$request->libelle;
         $soin->description=$request->description;
         $soin->duree=$request->duree;
-        $soin->prix=$request->duree;
+        $soin->cout=$request->cout;
+        $soin->type_soin_id=$request->type;
         $soin->save();
-        return view('Soins.soin')->with('success','Soin cree avec succes');
+        $soin->produits()->sync($request->produits);
+        return redirect('admin/soins')->with('success','Soin cree avec succes');
     }
 
     /**
@@ -64,7 +70,7 @@ class SoinController extends Controller
         $soin=Soin::find($id);
         $types=TypeSoin::all();
         $produits=Produit::all();
-        return view('Soins.soin-add',['edit'=>$soin,'types'=>$types,'produits'=>$produits]);
+        return view('Soins.soin-edit',['edit'=>$soin,'types'=>$types,'produits'=>$produits]);
     }
 
     /**
@@ -72,13 +78,15 @@ class SoinController extends Controller
      */
     public function update(Request $request, Soin $soin)
     {
+        dd($soin);
         $soin->libelle= $request->libelle;
         $soin->description=$request->description;
         $soin->duree=$request->duree;
         $soin->cout=$request->cout;
-        $soin->type_soin_id= $request->type_soin_id;
+        $soin->type_soin_id= $request->type;
         $soin->update();
-        return $soin;
+        $soin->produits()->sync($request->produits);
+        return redirect('admin/soins')->with('success','Soin Modifie avec succes');
     }
 
     /**

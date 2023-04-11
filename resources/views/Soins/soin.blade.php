@@ -2,7 +2,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Type de soins</h1>
+<x-adminlte-card title="Type de Soins"/>
 
 @stop
 
@@ -22,6 +22,11 @@
                 </form>
             </x-adminlte-modal>
         </div>
+        @if(session('success'))
+        <x-adminlte-alert theme="success" title="Success">
+            {{session('success')}}
+        </x-adminlte-alert>
+    @endif
         @php
             $heads = [
                 'ID',
@@ -62,7 +67,10 @@
             @endforeach
         </x-adminlte-datatable>
     </div>
-    <div class="">
+    <div class="my-5">
+        <br>
+        <br>
+        <x-adminlte-card title="Soins"/>
         <div class="d-flex justify-content-end mb-3"><a href="{{route('create-soin')}}"><x-adminlte-button data-toggle="modal" data-target="#modal" label="Ajouter" theme="primary" icon="fas fa-add"/></a></div>
         @php
 
@@ -119,9 +127,7 @@
                     @foreach($row as $cell)
                         <td>{!! $cell !!}</td>
                     @endforeach
-
-                    <td>{!! edit($row->id) !!}</td>
-                    <td>{!! '<nobr>'.$btnEdit.$btnDelete.$btnDetails.'</nobr>'!!}</td>
+                    <td>{!! '<nobr>'.edit($row->id).$btnDelete.$btnDetails.'</nobr>'!!}</td>
                 </tr>
             @endforeach
         </x-adminlte-datatable>

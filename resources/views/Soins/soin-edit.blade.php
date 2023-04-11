@@ -8,30 +8,30 @@
 
 
 @section('content')
-    <form action="{{route("store-soin")}}" method="post">
+    <form method="POST" action="{{route("update-soin",['id'=>$edit->id])}}">
 
         <div class="row">
-            <x-adminlte-input value="{{$edit->libelle ?? '   '}}" enable-old-support class="rounded-0" name="libelle" label="Libelle *" placeholder="Libelle..."
+            <x-adminlte-input value="{{$edit->libelle}}" enable-old-support class="rounded-0" name="libelle" label="Libelle *" placeholder="Libelle..."
                                                  fgroup-class="col-md-6" disable-feedback/>
              <x-adminlte-select data-title="Selectionner le type..." class="rounded-0"  fgroup-class="col-md-6" label="Type de Soin *" name="type">
-                 @foreach($types as $type)
-                     <option value="{{$type->id}}">{{$type->libelle}}</option>
+                <option  selected value="{{$edit->type->id}}">{{$edit->type->libelle}}</option>
+                @foreach($types as $type)
+                     <option selected value="{{$type->id}}">{{$type->libelle}}</option>
                  @endforeach
              </x-adminlte-select>
              @csrf
-
-
          </div>
          <div class="row">
-             <x-adminlte-input value="{{$edit->duree ?? '   '}}" class="rounded-0" type="area" name="duree" label="Duree *" placeholder="Duree en minutes..."
+             <x-adminlte-input value="{{$edit->duree}}" class="rounded-0" type="area" name="duree" label="Duree *" placeholder="Duree en minutes..."
                                fgroup-class="col-md-6" disable-feedback/>
-             <x-adminlte-input value="{{$edit->cout ?? '   '}}" class="rounded-0" type="area" name="cout" label="Prix *" placeholder="placeholder"
+             <x-adminlte-input value="{{$edit->cout}}" class="rounded-0" type="area" name="cout" label="Prix *" placeholder="placeholder"
                                fgroup-class="col-md-6" disable-feedback/>
 
          </div>
          <div class="row">
 
-             <x-adminlte-textarea value="{{$edit->description ?? '   '}}" class="rounded-0" fgroup-class="col-md-6" label="Description *" name="description" placeholder="description..."/>
+
+             <x-adminlte-textarea  class="rounded-0" fgroup-class="col-md-6" label="Description *" name="description" placeholder="description...">{{$edit->description}}</x-adminlte-textarea>
              @section('plugins.Select2', true)
              @php
                  $config = [
@@ -49,6 +49,10 @@
                  <x-slot name="appendSlot">
                      <x-adminlte-button style="height: 48px" theme="outline-dark" label="Effacer" icon="fas fa-lg fa-ban "/>
                  </x-slot>
+
+                 @foreach ($edit->produits as $pro )
+                    <option selected value="{{$pro->id}}">{{$pro->libelle}}</option>
+                 @endforeach
                  @foreach($produits as $produit)
                      <option  value="{{$produit->id}}">{{$produit->libelle}}</option>
                  @endforeach

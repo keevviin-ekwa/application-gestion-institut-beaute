@@ -13,11 +13,11 @@ class Soin extends Model
 
     public function type(): BelongsTo
     {
-        return $this->belongsTo(TypeSoin::class);
+        return $this->belongsTo(TypeSoin::class,'type_soin_id');
     }
 
 
     public function produits(){
-        return $this->belongsToMany();
+        return $this->belongsToMany(Produit::class,'soin_produit');
     }
 }

@@ -7,6 +7,7 @@ use App\Models\Produit;
 use App\Models\TypeProduit;
 use Illuminate\Http\Request;
 
+
 class ProduitController extends Controller
 {
 
@@ -35,7 +36,8 @@ class ProduitController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = Validator::make ($request->all(),[
+        /**$validated = Validator::make ($request->all(),[
+
             'libelle' => 'required|max:255',
             'description' => 'nullable|email|unique:fournisseurs',
             'image' => 'required|max:255',
@@ -50,10 +52,10 @@ class ProduitController extends Controller
                 ->withErrors($validated)
                 ->withInput();
         }
-
+**/
         $produit= new Produit();
         $produit->save($request->all());
-        return $produit;
+        return redirect('admin/produits');
     }
 
     /**
