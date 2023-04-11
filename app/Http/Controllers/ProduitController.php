@@ -34,22 +34,24 @@ class ProduitController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $validated = Validator::make ($request->all(),[
-            'libelle' => 'required|max:255',
-            'description' => 'nullable|email|unique:fournisseurs',
-            'image' => 'required|max:255',
-            'quantite'=>'required|integer',
-            'quantiteMin'=>'required|integer',
-            'type'=>'required|int',
-            'fournisseur'
-        ]);
 
-        if ($validated->fails()){
-            return view('Fournisseurs.fournisseur-add')
-                ->withErrors($validated)
-                ->withInput();
-        }
+    {
+        dd($request->all());
+//        $validated = Validator::make ($request->all(),[
+//            'libelle' => 'required|max:255',
+//            'description' => 'nullable|email|unique:fournisseurs',
+//            'image' => 'required|max:255',
+//            'quantite'=>'required|integer',
+//            'quantiteMin'=>'required|integer',
+//            'type'=>'required|int',
+//            'fournisseur'
+//        ]);
+//
+//        if ($validated->fails()){
+//            return view('Fournisseurs.fournisseur-add')
+//                ->withErrors($validated)
+//                ->withInput();
+      //  }
 
         $produit= new Produit();
         $produit->save($request->all());

@@ -50,7 +50,7 @@ Route::controller(FournisseurController::class)->prefix('admin')->group(function
     Route::get('/fournisseurs/create', 'create')->name('create-fournisseur');
     Route::post('/fournisseurs/store', 'store')->name('store-fournisseur');
     Route::get('/fournisseurs/edit', 'edit')->name('edit-fournisseur');
-    Route::put('/fournisseurs/update', 'store')->name('update-fournisseur');
+    Route::put('/fournisseurs/update', 'update')->name('update-fournisseur');
 });
 
 
