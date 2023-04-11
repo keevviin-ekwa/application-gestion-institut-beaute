@@ -37,7 +37,7 @@ class TypeSoinController extends Controller
         $typeSoin= new TypeSoin();
         $typeSoin->libelle= $request->libelle;
         $typeSoin->save();
-        return $typeSoin;
+        return redirect('admin/soins')->with('success-type','Type de soin crée avec succès');
     }
 
     /**

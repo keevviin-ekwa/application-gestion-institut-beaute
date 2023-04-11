@@ -2,7 +2,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Fournisseurs</h1>
+    <x-adminlte-card title="Fournisseurs"/>
 
 @stop
 
@@ -12,20 +12,21 @@
 
         $heads = [
              'ID',
-             'Designation',
-             'Photo',
-             'Description',
-             'quantité minimum',
-             'Quantite',
-             'Prix',
+             'Nom',
+             'Tel',
+             'Email',
               'Date Creation',
               'Date Modification',
-            ['label' => 'Actions', 'no-export' => true, 'width' => 5],
+             ['label' => 'Actions', 'no-export' => true, 'width' => 5],
         ];
 
-        $btnEdit = '<button class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
-                        <i class="fa fa-lg fa-fw fa-pen"></i>
-                    </button>';
+        function edit($id){
+                $route =url("admin/fournisseurs/edit/".$id);
+                return $btnEdit = '<a href='.$route.'><button class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
+                            <i class="fa fa-lg fa-fw fa-pen"></i>
+                        </button></a>';
+            }
+
         $btnDelete = '<button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete">
                           <i class="fa fa-lg fa-fw fa-trash"></i>
                       </button>';
@@ -35,13 +36,7 @@
         $image= '<img src=""/>';
 
         $config = [
-            'data' => [
-                [1, 'Defrisant', '<nobr>'.$image.'</nobr>','Un bon produit','5','50', '250','20/05/2023','20/05/2023','<nobr>'.$btnEdit.$btnDelete.$btnDetails.'</nobr>'],
-                [2, 'Defrisant', '<nobr>'.$image.'</nobr>','Un bon produit','5','50', '250','20/05/2023','20/05/2023','<nobr>'.$btnEdit.$btnDelete.$btnDetails.'</nobr>'],
-                [3, 'Defrisant', '<nobr>'.$image.'</nobr>','Un bon produit','5','50', '250','20/05/2023','20/05/2023','<nobr>'.$btnEdit.$btnDelete.$btnDetails.'</nobr>'],
-                [4, 'Defrisant', '<nobr>'.$image.'</nobr>','Un bon produit','5','50', '250','20/05/2023','20/05/2023','<nobr>'.$btnEdit.$btnDelete.$btnDetails.'</nobr>'],
 
-            ],
             'order' => [[1, 'asc']],
             'columns' => [null, null, null, ['orderable' => false]],
 
@@ -62,11 +57,12 @@
     @endif
     {{-- Minimal example / fill data using the component slot --}}
     <x-adminlte-datatable striped hoverable beautify head-theme="light" theme="dark" id="table1" :heads="$heads"  :config="$_config"  striped hoverable with-buttons >
-        @foreach($config['data'] as $row)
+        @foreach($fournisseurs as $row)
             <tr>
                 @foreach($row as $cell)
                     <td>{!! $cell !!}</td>
                 @endforeach
+                    <td>{!! '<nobr>'.edit($row->id).$btnDelete.$btnDetails.'</nobr>'!!}</td>
             </tr>
         @endforeach
     </x-adminlte-datatable>

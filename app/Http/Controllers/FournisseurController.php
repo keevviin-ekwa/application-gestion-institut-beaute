@@ -14,10 +14,12 @@ class FournisseurController extends Controller
     public function index()
     {
         $fournisseurs=Fournisseur::all();
-        return view('Fournisseurs.fournisseur');
+        $data=array_values(json_decode(json_encode($fournisseurs)));
+        return view('Fournisseurs.fournisseur',['fournisseurs'=>$data]);
     }
 
     /**
+     *
      * Show the form for creating a new resource.
      */
     public function create()
@@ -64,17 +66,41 @@ class FournisseurController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Fournisseur $fournisseur)
+    public function edit( $id)
     {
-        //
+
+        $fournisseur=Fournisseur::find($id);
+
+
+
+        return view('Fournisseurs.fournisseur-edit',['fournisseur'=>$fournisseur]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Fournisseur $fournisseur)
+    public function update(Request $request, $id)
     {
-        //
+
+        $validated = Validator::make ($request->all(),[
+            'nom' => 'required|max:255',
+            'email' => 'required|email|unique:fournisseurs',
+            'adresse' => 'nullable|max:255',
+            'tel'=>'required|int'
+        ]);
+
+        if ($validated->fails()){
+            return view('Fournisseurs.fournisseur-edit')
+                ->withErrors($validated);
+        }
+
+        $fournisseur= Fournisseur::find($id);
+        $fournisseur->nom=$request->nom;
+        $fournisseur->Tel=$request->tel;
+        $fournisseur->email= $request->email;
+        $fournisseur->update();
+        return redirect('admin/fournisseurs')->with('sucess','Fournisseur modifié avec succès');
+
     }
 
     /**

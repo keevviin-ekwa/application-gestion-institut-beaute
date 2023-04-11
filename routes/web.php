@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\FournisseurController;
 use App\Http\Controllers\ProduitController;
+use App\Http\Controllers\SoinController;
 use App\Http\Controllers\TypeProduitController;
+use App\Http\Controllers\TypeSoinController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +34,26 @@ Route::controller(TypeProduitController::class)->prefix('admin')->group(function
 });
 
 
+Route::controller(TypeSoinController::class)->prefix('admin')->group(function () {
+
+    Route::get('/typesoins', 'index');
+    Route::post('/typesoins/store', 'store')->name('create-type-soin');
+
+});
+
+
+
+
+Route::controller(SoinController::class)->prefix('admin')->group(function () {
+
+    Route::get('/soins', 'index');
+    Route::get('/soins/create', 'create')->name('create-soin');
+    Route::post('/soins/store', 'store')->name('store-soin');
+    Route::get('/soins/edit/{id}', 'edit')->name('edit-soin');
+    Route::post('/soins/update/{id}', 'update')->name('update-soin');
+});
+
+
 
 
 Route::controller(ProduitController::class)->prefix('admin')->group(function () {
@@ -49,8 +71,8 @@ Route::controller(FournisseurController::class)->prefix('admin')->group(function
     Route::get('/fournisseurs', 'index');
     Route::get('/fournisseurs/create', 'create')->name('create-fournisseur');
     Route::post('/fournisseurs/store', 'store')->name('store-fournisseur');
-    Route::get('/fournisseurs/edit', 'edit')->name('edit-fournisseur');
-    Route::put('/fournisseurs/update', 'update')->name('update-fournisseur');
+    Route::get('/fournisseurs/edit/{id}', 'edit')->name('edit-fournisseur');
+    Route::put('/fournisseurs/update/{id}', 'update');
 });
 
 
