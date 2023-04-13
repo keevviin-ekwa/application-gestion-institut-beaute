@@ -61,7 +61,7 @@
                     @foreach($row as $cell)
                         <td>{!! $cell !!}</td>
                     @endforeach
-                    <td>{!! '<nobr>'.$btnEdit.$btnDelete.$btnDetails.'</nobr>'!!}</td>
+                    <td>{!! '<nobr>'.$btnEdit.$btnDetails.'</nobr>'!!}</td>
 
                 </tr>
             @endforeach
@@ -127,7 +127,7 @@
                     @foreach($row as $cell)
                         <td>{!! $cell !!}</td>
                     @endforeach
-                    <td>{!! '<nobr>'.edit($row->id).$btnDelete.$btnDetails.'</nobr>'!!}</td>
+                    <td>{!! '<nobr>'.edit($row->id).$btnDetails.'</nobr>'!!}</td>
                 </tr>
             @endforeach
         </x-adminlte-datatable>

@@ -2,20 +2,23 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Employés</h1>
+<x-adminlte-card title="Employes"/>
 @stop
 
 @section('content')
-    <div class="d-flex justify-content-end mb-3"><a href="{{route('create-employe')}}"><x-adminlte-button data-toggle="modal" data-target="#modal" label="Ajouter" theme="primary" icon="fas fa-add"/></a></div>
+    <div class="d-flex justify-content-end mb-3"><a href="{{route('create')}}"><x-adminlte-button data-toggle="modal" data-target="#modal" label="Ajouter" theme="primary" icon="fas fa-add"/></a></div>
+    @if(session('success'))
+        <x-adminlte-alert theme="success" title="Success">
+            {{session('success')}}
+        </x-adminlte-alert>
+    @endif
     @php
         $heads = [
              'ID',
-             'Designation',
-             'Photo',
-             'Description',
-             'quantité minimum',
-             'Quantite',
-             'Prix',
+             'Nom',
+             'Prenom',
+             'Telephone',
+             'email',
               'Date Creation',
               'Date Modification',
             ['label' => 'Actions', 'no-export' => true, 'width' => 5],
@@ -55,11 +58,19 @@
 
     {{-- Minimal example / fill data using the component slot --}}
     <x-adminlte-datatable striped hoverable beautify head-theme="light" theme="dark" id="table1" :heads="$heads"  :config="$_config"  striped hoverable with-buttons >
-        @foreach($config['data'] as $row)
+        @foreach($employes as $row)
             <tr>
-                @foreach($row as $cell)
-                    <td>{!! $cell !!}</td>
-                @endforeach
+
+
+                    <td>{!! $row->id !!}</td>
+                    <td>{!! $row->nom !!}</td>
+                    <td>{!! $row->prenom !!}</td>
+                    <td>{!! $row->telehpone !!}</td>
+                    <td>{!! $row->email !!}</td>
+                    <td>{!! $row->created_at !!}</td>
+                    <td>{!! $row->updated_at !!}</td>
+                    <td>{!!'<nobr>'.$btnEdit.$btnDelete.$btnDetails.'</nobr>'!!}</td>
+
             </tr>
         @endforeach
     </x-adminlte-datatable>

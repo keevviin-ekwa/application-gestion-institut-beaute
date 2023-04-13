@@ -15,8 +15,9 @@
              'Nom',
              'Tel',
              'Email',
-              'Date Creation',
+             'Date Creation',
               'Date Modification',
+              'Adresse',
              ['label' => 'Actions', 'no-export' => true, 'width' => 5],
         ];
 

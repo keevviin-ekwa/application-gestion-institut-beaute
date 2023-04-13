@@ -22,7 +22,13 @@ return new class extends Migration
             $table->foreignId("type_produit_id");
             $table->foreign("type_produit_id")
                 ->references("id")
-                ->on("type_produits");
+                ->on("type_produits")
+                ->onDelete("cascade");
+                $table->foreignId("fournisseur_id");
+            $table->foreign("fournisseur_id")
+                ->references("id")
+                ->on("fournisseurs")
+                ->onDelete("cascade");
             $table->timestamps();
         });
     }

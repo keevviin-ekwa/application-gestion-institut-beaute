@@ -28,7 +28,7 @@ class TypeProduitController extends Controller
         $typeProduit= new TypeProduit();
         $typeProduit->libelle= $request->libelle;
         $typeProduit->save();
-        return redirect('admin/typeproduits')->with('success','Type de produit cree avec succes');
+        return redirect('admin/roduits')->with('success','Type de produit cree avec succes');
     }
 
     /**

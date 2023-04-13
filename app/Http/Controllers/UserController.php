@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use http\Encoding\Stream\Enbrotli;
 use Illuminate\Http\Request;
@@ -22,7 +23,11 @@ class UserController extends Controller
      */
     public function indexEmployes()
     {
-        return view('Utilisateurs.employe');
+        $role=Role::where('libelle','Employe')->first();
+
+        $employe= User::where('role_id',$role->id)->get();
+        
+        return view('Utilisateurs.employe',['employes'=>$employe]);
     }
 
     /**
@@ -37,37 +42,34 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function createEmploye()
+    public function create()
     {
-        return view('Utilisateurs.employe-add');
+        $roles=Role::all();
+        return view('Utilisateurs.employe-add',['roles'=>$roles]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function storeEmploye(Request $request)
+    public function store(Request $request)
     {
-        $validated = $request->validate([
-            'nom' => 'required|max:255',
-            'prenom' => 'nullable',
-            'address' => 'required|max:255',
-            'password' => 'required',
-        ]);
-
-        if ($validated->fails()){
-            return view('utilisateurs.employe-add')
-                ->withErrors($validated)
-                ->withInput();
-        }
 
 
         $employe= new User();
         $employe->nom=$request->nom;
         $employe->prenom=$request->prenom;
-        $employe->address=$request->address;
-        $employe->password= bcrypt($request->password);
+        //$employe->address=$request->address;
+        $employe->role_id=$request->role;
+        $employe->telehpone=$request->tel;
+        $employe->email=$request->email;
+        $employe->password= bcrypt("test");
         $employe->save();
-        return redirect('admin/utilisateurs/employes')->with('success','Employe crée avec succès');
+        $role=Role::find($request->role);
+        if(strtoupper($role->name)=="EMPLOYE"){
+            return redirect('admin/utilisateurs/employes')->with('success','Employe crée avec succès');
+        }
+        return redirect('admin/utilisateurs/clients')->with('success','Employe crée avec succès');
+
     }
 
 
@@ -76,18 +78,6 @@ class UserController extends Controller
      */
     public function storeClient(Request $request)
     {
-        $validated = $request->validate([
-            'nom' => 'required|max:255',
-            'prenom' => 'nullable',
-            'address' => 'required|max:255',
-            'password' => 'required',
-        ]);
-
-        if ($validated->fails()){
-            return view('utilisateurs.employe-add')
-                ->withErrors($validated)
-                ->withInput();
-        }
 
 
         $employe= new User();

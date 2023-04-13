@@ -76,9 +76,10 @@ class SoinController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Soin $soin)
+    public function update(Request $request, $id)
     {
-        dd($soin);
+
+        $soin=Soin::find($id);
         $soin->libelle= $request->libelle;
         $soin->description=$request->description;
         $soin->duree=$request->duree;
