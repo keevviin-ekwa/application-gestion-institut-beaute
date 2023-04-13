@@ -83,13 +83,13 @@ Route::controller(FournisseurController::class)->prefix('admin')->group(function
 Route::controller(UserController::class)->prefix('admin/utilisateurs')->group(function () {
 
     Route::get('/clients', 'indexClients');
+    Route::get('/show/{id}', 'show')->name("show-user");
     Route::get('/employes', 'indexEmployes');
     Route::get('/employes/create', 'create')->name('create');
     Route::post('/employes/store', 'store')->name('store-user');
     Route::get('/clients/create', 'createEmploye')->name('create-client');
     Route::post('/client/store', 'storeClient')->name('store-client');
-    Route::get('/clients/edit', 'editClient')->name('edit-client');
-    Route::put('/client/update', 'udpdateClient')->name('update-client');
-    Route::get('/employes/edit', 'editEmploye')->name('edit-employes');
-    Route::put('/employes/update', 'storeUpdate')->name('update-employes');
+    Route::get('/edit/{id}', 'edit')->name('edit-user');
+    Route::put('/update', 'update')->name('update-user');
+
 });

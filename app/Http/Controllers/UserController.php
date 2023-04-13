@@ -26,7 +26,7 @@ class UserController extends Controller
         $role=Role::where('libelle','Employe')->first();
 
         $employe= User::where('role_id',$role->id)->get();
-        
+
         return view('Utilisateurs.employe',['employes'=>$employe]);
     }
 
@@ -35,7 +35,9 @@ class UserController extends Controller
      */
     public function indexClients()
     {
-        return view('Utilisateurs.client');
+        $role=Role::where('libelle','Client')->first();
+        $clients= User::where('role_id',$role->id)->get();
+        return view('Utilisateurs.client',['clients'=>$clients]);
     }
 
 
@@ -65,36 +67,23 @@ class UserController extends Controller
         $employe->password= bcrypt("test");
         $employe->save();
         $role=Role::find($request->role);
-        if(strtoupper($role->name)=="EMPLOYE"){
+        if(strtoupper($role->libelle)==="EMPLOYE"){
             return redirect('admin/utilisateurs/employes')->with('success','Employe crée avec succès');
         }
-        return redirect('admin/utilisateurs/clients')->with('success','Employe crée avec succès');
-
-    }
-
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function storeClient(Request $request)
-    {
-
-
-        $employe= new User();
-        $employe->nom=$request->nom;
-        $employe->prenom=$request->prenom;
-        $employe->address=$request->address;
-        $employe->password= bcrypt($request->password);
-        $employe->save();
         return redirect('admin/utilisateurs/clients')->with('success','Client crée avec succès');
+
     }
+
+
+
 
     /**
      * Display the specified resource.
      */
-    public function showEmploye(User $employe)
+    public function show($id)
     {
-        return view('Utilisateurs.employe-detail',['data'=>$employe]);
+        $user= User::find($id);
+        return view('Utilisateurs.show-user',['data'=>$user]);
     }
 
     /**
@@ -108,44 +97,44 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function editEmploye(User $user)
+    public function edit($id)
     {
-        return view('Utilisateurs.employe-add',['data'=>$user]);
+        $user= User::find($id);
+        $roles= Role::all();
+        return view('Utilisateurs.user-edit',['data'=>$user,'roles'=>$roles]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function editClient(User $user)
-    {
-        return view('Utilisateurs.client-add',['data'=>$user]);
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function updateClient(Request $request, User $user)
+    public function update(Request $request, User $user)
     {
-        $validated = $request->validate([
-            'nom' => 'required|max:255',
-            'prenom' => 'nullable',
-            'address' => 'required|max:255',
-            'password' => 'required',
-        ]);
-
-        if ($validated->fails()){
-            return view('utilisateurs.client-add')
-                ->withErrors($validated)
-                ->withInput();
-        }
+//        $validated = $request->validate([
+//            'nom' => 'required|max:255',
+//            'prenom' => 'nullable',
+//            'address' => 'required|max:255',
+//            'password' => 'required',
+//        ]);
+//
+//        if ($validated->fails()){
+//            return view('utilisateurs.client-add')
+//                ->withErrors($validated)
+//                ->withInput();
+//        }
 
 
         $user->nom=$request->nom;
         $user->prenom=$request->prenom;
         $user->address=$request->address;
-        $user->password= bcrypt($request->password);
+        $user->telehpone=$request->tel;
+        $user->role_id= $request->role;
         $user->update();
-        return  redirect('admin/utilisateurs/clients')->with('success','client modifié avec succès');
+        $role=Role::find($request->role);
+        if(strtoupper($role->libelle)==="EMPLOYE"){
+            return redirect('admin/utilisateurs/employes')->with('success','Employé Modifié avec succès');
+        }
+        return redirect('admin/utilisateurs/clients')->with('success','Client Modifié avec succès');
 
     }
 

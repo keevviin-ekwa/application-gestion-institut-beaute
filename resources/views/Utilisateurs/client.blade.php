@@ -2,44 +2,45 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Liste des produits</h1>
+    <x-adminlte-card title="Clients"/>
 @stop
 
 @section('content')
-    <div class="d-flex justify-content-end mb-3"><a href="{{route('create-product')}}"><x-adminlte-button data-toggle="modal" data-target="#modal" label="Ajouter" theme="primary" icon="fas fa-add"/></a></div>
+    <div class="d-flex justify-content-end mb-3"><a href="{{route('create')}}"><x-adminlte-button data-toggle="modal" data-target="#modal" label="Ajouter" theme="primary" icon="fas fa-add"/></a></div>
+    @if(session('success'))
+        <x-adminlte-alert theme="success" title="Success">
+            {{session('success')}}
+        </x-adminlte-alert>
+    @endif
     @php
         $heads = [
              'ID',
-             'Designation',
-             'Photo',
-             'Description',
-             'quantité minimum',
-             'Quantite',
-             'Prix',
+             'Nom',
+             'Prenom',
+             'Telephone',
+             'email',
               'Date Creation',
               'Date Modification',
             ['label' => 'Actions', 'no-export' => true, 'width' => 5],
         ];
 
-        $btnEdit = '<button class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
-                        <i class="fa fa-lg fa-fw fa-pen"></i>
-                    </button>';
-        $btnDelete = '<button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete">
-                          <i class="fa fa-lg fa-fw fa-trash"></i>
-                      </button>';
-        $btnDetails = '<button class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
+
+        function edit($id){
+                $route =url("admin/utilisateurs/edit/".$id);
+                return $btnEdit = '<a href='.$route.'><button class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
+                            <i class="fa fa-lg fa-fw fa-pen"></i>
+                        </button></a>';
+            }
+
+       function detail($id){
+             $route =url("admin/utilisateurs/show/".$id);
+            return   $btnDetails = '<a href='.$route.'><button class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
                            <i class="fa fa-lg fa-fw fa-eye"></i>
-                       </button>';
-        $image= '<img src=""/>';
+                       </button></a>';
+       }
 
         $config = [
-            'data' => [
-                [1, 'Defrisant', '<nobr>'.$image.'</nobr>','Un bon produit','5','50', '250','20/05/2023','20/05/2023','<nobr>'.$btnEdit.$btnDelete.$btnDetails.'</nobr>'],
-                [2, 'Defrisant', '<nobr>'.$image.'</nobr>','Un bon produit','5','50', '250','20/05/2023','20/05/2023','<nobr>'.$btnEdit.$btnDelete.$btnDetails.'</nobr>'],
-                [3, 'Defrisant', '<nobr>'.$image.'</nobr>','Un bon produit','5','50', '250','20/05/2023','20/05/2023','<nobr>'.$btnEdit.$btnDelete.$btnDetails.'</nobr>'],
-                [4, 'Defrisant', '<nobr>'.$image.'</nobr>','Un bon produit','5','50', '250','20/05/2023','20/05/2023','<nobr>'.$btnEdit.$btnDelete.$btnDetails.'</nobr>'],
 
-            ],
             'order' => [[1, 'asc']],
             'columns' => [null, null, null, ['orderable' => false]],
 
@@ -55,11 +56,19 @@
 
     {{-- Minimal example / fill data using the component slot --}}
     <x-adminlte-datatable striped hoverable beautify head-theme="light" theme="dark" id="table1" :heads="$heads"  :config="$_config"  striped hoverable with-buttons >
-        @foreach($config['data'] as $row)
+        @foreach($clients as $row)
             <tr>
-                @foreach($row as $cell)
-                    <td>{!! $cell !!}</td>
-                @endforeach
+
+
+                <td>{!! $row->id !!}</td>
+                <td>{!! $row->nom !!}</td>
+                <td>{!! $row->prenom !!}</td>
+                <td>{!! $row->telehpone !!}</td>
+                <td>{!! $row->email !!}</td>
+                <td>{!! $row->created_at !!}</td>
+                <td>{!! $row->updated_at !!}</td>
+                <td>{!!'<nobr>'.edit($row->id).detail($row->id).'</nobr>'!!}</td>
+
             </tr>
         @endforeach
     </x-adminlte-datatable>

@@ -24,9 +24,12 @@
             ['label' => 'Actions', 'no-export' => true, 'width' => 5],
         ];
 
-        $btnEdit = '<button class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
-                        <i class="fa fa-lg fa-fw fa-pen"></i>
-                    </button>';
+       function edit($id){
+                $route =url("admin/utilisateurs/edit/".$id);
+                return $btnEdit = '<a href='.$route.'><button class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
+                            <i class="fa fa-lg fa-fw fa-pen"></i>
+                        </button></a>';
+            }
         $btnDelete = '<button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete">
                           <i class="fa fa-lg fa-fw fa-trash"></i>
                       </button>';
@@ -36,13 +39,8 @@
         $image= '<img src=""/>';
 
         $config = [
-            'data' => [
-                [1, 'Defrisant', '<nobr>'.$image.'</nobr>','Un bon produit','5','50', '250','20/05/2023','20/05/2023','<nobr>'.$btnEdit.$btnDelete.$btnDetails.'</nobr>'],
-                [2, 'Defrisant', '<nobr>'.$image.'</nobr>','Un bon produit','5','50', '250','20/05/2023','20/05/2023','<nobr>'.$btnEdit.$btnDelete.$btnDetails.'</nobr>'],
-                [3, 'Defrisant', '<nobr>'.$image.'</nobr>','Un bon produit','5','50', '250','20/05/2023','20/05/2023','<nobr>'.$btnEdit.$btnDelete.$btnDetails.'</nobr>'],
-                [4, 'Defrisant', '<nobr>'.$image.'</nobr>','Un bon produit','5','50', '250','20/05/2023','20/05/2023','<nobr>'.$btnEdit.$btnDelete.$btnDetails.'</nobr>'],
 
-            ],
+
             'order' => [[1, 'asc']],
             'columns' => [null, null, null, ['orderable' => false]],
 
@@ -69,7 +67,7 @@
                     <td>{!! $row->email !!}</td>
                     <td>{!! $row->created_at !!}</td>
                     <td>{!! $row->updated_at !!}</td>
-                    <td>{!!'<nobr>'.$btnEdit.$btnDelete.$btnDetails.'</nobr>'!!}</td>
+                    <td>{!!'<nobr>'.edit($row->id).$btnDelete.$btnDetails.'</nobr>'!!}</td>
 
             </tr>
         @endforeach
