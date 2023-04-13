@@ -34,7 +34,7 @@ class FournisseurController extends Controller
     {
 
       //  dd($request->all());
-        $validated = Validator::make ($request->all(),[
+       /**  $validated = Validator::make ($request->all(),[
             'nom' => 'required|max:255',
             'email' => 'required|email|unique:fournisseurs',
             'adresse' => 'nullable|max:255',
@@ -45,11 +45,12 @@ class FournisseurController extends Controller
             return view('Fournisseurs.fournisseur-add')
                 ->withErrors($validated);
         }
+        */
 
         $fournisseur= new Fournisseur();
         $fournisseur->nom=$request->nom;
         $fournisseur->tel=$request->tel;
-       // $fournisseur->adresse=$request->adresse;
+        $fournisseur->adress=$request->adress;
         $fournisseur->email=$request->email;
         $fournisseur->save();
         return redirect('admin/fournisseurs')->with('success','Fournisseur cree avec success');
@@ -82,24 +83,14 @@ class FournisseurController extends Controller
     public function update(Request $request, $id)
     {
 
-        $validated = Validator::make ($request->all(),[
-            'nom' => 'required|max:255',
-            'email' => 'required|email|unique:fournisseurs',
-            'adresse' => 'nullable|max:255',
-            'tel'=>'required|int'
-        ]);
-
-        if ($validated->fails()){
-            return view('Fournisseurs.fournisseur-edit')
-                ->withErrors($validated);
-        }
 
         $fournisseur= Fournisseur::find($id);
         $fournisseur->nom=$request->nom;
         $fournisseur->Tel=$request->tel;
         $fournisseur->email= $request->email;
+        $fournisseur->adress=$request->adress;
         $fournisseur->update();
-        return redirect('admin/fournisseurs')->with('sucess','Fournisseur modifié avec succès');
+        return redirect('admin/fournisseurs')->with('success','Fournisseur modifié avec succès');
 
     }
 

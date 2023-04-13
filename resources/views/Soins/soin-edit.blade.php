@@ -2,13 +2,13 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Soins</h1>
+<x-adminlte-card title="Modifier un soin"/>
 
 @stop
 
 
 @section('content')
-    <form method="POST" action="{{route("update-soin",['id'=>$edit->id])}}">
+    <form method="POST" action="{{url('admin/soins/update/'.$edit->id)}}">
 
         <div class="row">
             <x-adminlte-input value="{{$edit->libelle}}" enable-old-support class="rounded-0" name="libelle" label="Libelle *" placeholder="Libelle..."

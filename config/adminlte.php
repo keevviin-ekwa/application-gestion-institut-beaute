@@ -332,20 +332,8 @@ return [
         [
             'text'    => 'Produits',
             'icon'    => 'fas fa-fw fa-shopping-bag',
-            'submenu' => [
-                [
-                    'text' => 'Types de produit',
-                    'url'  => 'admin/typeproduits',
-                    'icon'    => 'fas fa-fw fa-stars',
+            'url'     => 'admin/produits',
 
-                ],
-                [
-                    'text'    => 'Produits',
-                    'url'     => 'admin/produits',
-                    'icon'    => 'fas fa-fw fa-star',
-                ],
-
-            ],
         ],
         [
             'text'    => 'Soins',

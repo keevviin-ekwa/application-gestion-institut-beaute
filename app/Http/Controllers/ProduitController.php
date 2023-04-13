@@ -26,9 +26,11 @@ class ProduitController extends Controller
     public function index()
     {
         $products=Produit::all();
+        $product_data= array_values(json_decode(json_encode($products),true));
         $typeProduit=TypeProduit::all();
+        $data=array_values(json_decode(json_encode($typeProduit),true));
 
-        return view('produit',['produits'=>$products,'type'=>$typeProduit]);
+        return view('Produits.produit',['produits'=>$product_data,'data'=>$data]);
     }
 
     /**
@@ -53,9 +55,19 @@ class ProduitController extends Controller
         ->withInput();
         }
          **/
+
         $produit= new Produit();
-        $produit->save($request->all());
-        return redirect('admin/produits');
+        $produit->libelle=$request->libelle;
+        $produit->description=$request->description;
+        $produit->quantite=$request->quantite;
+        $produit->quantiteMin=$request->quantitemin;
+        $produit->prix=$request->prix;
+        $produit->type_produit_id=$request->type;
+        $produit->fournisseur_id=$request->fournisseur;
+
+
+        $produit->save();
+        return redirect('admin/produits')->with('success','produit cree avec succes');
     }
 
     /**
@@ -69,24 +81,30 @@ class ProduitController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Produit $produit)
+    public function edit($id)
     {
-        //
+        $produit= Produit::find($id);
+        $typeProduit=TypeProduit::all();
+        $fournisseurs= Fournisseur::all();
+        return view('Produits.produit-edit',['produit'=>$produit,'types'=>$typeProduit,'fournisseurs'=>$fournisseurs]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Produit $produit)
+    public function update(Request $request,$id)
     {
+
+        $produit= Produit::find($id);
         $produit->libelle=$request->libelle;
-        $produit->desciprtion=$request->description;
-        $produit->quantiteMin=$request->quantiteMin;
-        $produit->type_produit_id= $request->type_prduit_id;
+        $produit->description=$request->description;
+        $produit->quantiteMin=$request->quantitemin;
+        $produit->type_produit_id= $request->type;
         $produit->prix= $request->prix;
+        $produit->fournisseur_id=$request->fournisseur;
         $produit->quantite=$request->quantite;
         $produit->update();
-        return $produit;
+        return redirect('admin/produits')->with('sucsess','Produit modifie avec succes');
     }
 
     /**
