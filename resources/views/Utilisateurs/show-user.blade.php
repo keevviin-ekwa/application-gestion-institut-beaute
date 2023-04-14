@@ -7,11 +7,11 @@
 
 @section('content')
     <div>
-        <x-adminlte-profile-widget name="Sarah O'Donell" desc="Commercial Manager" theme="primary"
+        <x-adminlte-profile-widget name="{{$data->prenom}}" desc="{{$data->role->libelle}}" theme="primary"
                                    img="https://picsum.photos/id/1011/100">
             <x-adminlte-profile-col-item class="text-primary border-right" icon="fas fa-lg fa-gift"
-                                         title="Sales" text="25" size=6 badge="primary"/>
-            <x-adminlte-profile-col-item class="text-danger" icon="fas fa-lg fa-users" title="Dependents"
+                                         title="Reservations" text="25" size=6 badge="primary"/>
+            <x-adminlte-profile-col-item class="text-danger" icon="fas fa-lg fa-users" title="Points"
                                          text="10" size=6 badge="danger"/>
         </x-adminlte-profile-widget>
 

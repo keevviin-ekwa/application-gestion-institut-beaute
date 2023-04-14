@@ -30,13 +30,14 @@
                             <i class="fa fa-lg fa-fw fa-pen"></i>
                         </button></a>';
             }
-        $btnDelete = '<button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete">
-                          <i class="fa fa-lg fa-fw fa-trash"></i>
-                      </button>';
-        $btnDetails = '<button class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
+
+        function detail($id){
+             $route =url("admin/utilisateurs/show/".$id);
+            return   $btnDetails = '<a href='.$route.'><button class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
                            <i class="fa fa-lg fa-fw fa-eye"></i>
-                       </button>';
-        $image= '<img src=""/>';
+                       </button></a>';
+       }
+
 
         $config = [
 
@@ -67,7 +68,7 @@
                     <td>{!! $row->email !!}</td>
                     <td>{!! $row->created_at !!}</td>
                     <td>{!! $row->updated_at !!}</td>
-                    <td>{!!'<nobr>'.edit($row->id).$btnDelete.$btnDetails.'</nobr>'!!}</td>
+                    <td>{!!'<nobr>'.edit($row->id).detail($row->id).'</nobr>'!!}</td>
 
             </tr>
         @endforeach

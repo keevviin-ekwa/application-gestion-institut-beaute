@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FournisseurController;
 use App\Http\Controllers\ProduitController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\SoinController;
 use App\Http\Controllers\TypeProduitController;
 use App\Http\Controllers\TypeSoinController;
@@ -53,6 +54,17 @@ Route::controller(SoinController::class)->prefix('admin')->group(function () {
     Route::get('/soins/edit/{id}', 'edit')->name('edit-soin');
     Route::post('/soins/update/{id}', 'update')->name('update-soin');
 });
+
+
+Route::controller(ReservationController::class)->prefix('admin')->group(function () {
+
+    Route::get('/reservations', 'index');
+    Route::get('/reservations/create', 'create')->name('create-reservation');
+    Route::post('/reservations/store', 'store')->name('store-reservation');
+    Route::get('/reservations/edit/{id}', 'edit')->name('edit-reservation');
+    Route::post('/reservations/update/{id}', 'update')->name('update-reservation');
+});
+
 
 
 

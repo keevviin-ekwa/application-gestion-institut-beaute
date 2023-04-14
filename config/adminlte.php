@@ -296,19 +296,19 @@ return [
         [
             'text' => 'Tableau de bord',
             'url'  => '/',
-            'icon' => 'fas fa-fw  fa-grid-horizontal',
+            'icon' => 'fas fa-fw  fa-tachometer-alt',
         ],
 
         [
             'text' => 'Employes',
             'url'  => 'admin/utilisateurs/employes',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-user-tie',
         ],
 
         [
             'text' => 'Clients',
             'url'  => 'admin/utilisateurs/clients',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-users',
         ],
 
         [
@@ -319,25 +319,25 @@ return [
 
         [
             'text' => 'Prestation',
-            'url'  => 'admin/prestation',
-            'icon' => 'fas fa-fw fa-user',
+            'url'  => 'admin/prestations',
+            'icon' => 'fas fa-fw  fa-concierge-bell',
         ],
 
         [
             'text' => 'Reservations',
-            'url'  => 'admin/reservation',
+            'url'  => 'admin/reservations',
             'icon' => 'fas fa-fw fa-user',
         ],
 
         [
             'text'    => 'Produits',
-            'icon'    => 'fas fa-fw fa-shopping-bag',
+            'icon'    => 'fab fa-fw fa-product-hunt',
             'url'     => 'admin/produits',
 
         ],
         [
             'text'    => 'Soins',
-            'icon'    => 'fas fa-fw fa-house-chimney-heart',
+            'icon'    => 'fas fa-fw fa-hand-holding-heart',
             'url'  => 'admin/soins',
         ],
         [
