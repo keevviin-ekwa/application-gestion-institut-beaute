@@ -79,6 +79,12 @@
                {{session('success')}}
            </x-adminlte-alert>
       @endif
+       @if(session('Danger'))
+           <x-adminlte-alert theme="Danger" title="Danger">
+               {{session('Danger')}}
+           </x-adminlte-alert>
+       @endif
+
 
        {{-- Minimal example / fill data using the component slot --}}
        <x-adminlte-datatable  striped hoverable beautify head-theme="light" theme="dark" id="table1" :heads="$heads">
@@ -98,7 +104,7 @@
     <br>
     <br>
     <x-adminlte-card class="my-5" title="Produits"/>
-    <div class="d-flex justify-content-end mb-3"><a href="{{route('create-product')}}"><x-adminlte-button data-toggle="modal" data-target="#modal" label="Ajouter" theme="primary" icon="fas fa-add"/></a></div>
+    <div class="d-flex justify-content-end mb-3"><a href="{{route('create-product')}}"><x-adminlte-button  label="Ajouter" theme="primary" icon="fas fa-add"/></a></div>
     @php
 
         $heads = [
@@ -121,9 +127,13 @@
                             <i class="fa fa-lg fa-fw fa-pen"></i>
                         </button></a>';
             }
-        $btnDelete = '<button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete">
+        function delete($id){
+                $route =url("admin/produits/delete/".$id);
+                return  $btnDelete = '<a href='.$route.'><button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete">
                           <i class="fa fa-lg fa-fw fa-trash"></i>
-                      </button>';
+                      </button><a>';
+            }
+
         $btnDetails = '<button class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
                            <i class="fa fa-lg fa-fw fa-eye"></i>
                        </button>';
@@ -153,7 +163,7 @@
                     <td>{!! $cell !!}</td>
 
                 @endforeach
-                <td>{!!'<nobr>'.edit($row['id']).$btnDelete.$btnDetails.'</nobr>' !!}</td>
+                <td>{!!'<nobr>'.edit($row['id']).delete($row['id']).$btnDetails.'</nobr>' !!}</td>
             </tr>
         @endforeach
     </x-adminlte-datatable>

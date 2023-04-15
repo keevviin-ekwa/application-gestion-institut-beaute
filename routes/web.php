@@ -24,6 +24,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/wizard', function () {
+    return view('test');
+});
 
 
 
@@ -76,6 +79,7 @@ Route::controller(ProduitController::class)->prefix('admin')->group(function () 
     Route::post('/produits/store', 'store')->name('store-produit');
     Route::get('/produits/edit/{id}', 'edit')->name('edit-produit');
     Route::put('/produits/update/{id}', 'update')->name('update-produit');
+    Route::delete('/produits/delete/{id}', 'delete')->name('delete-produit');
 });
 
 

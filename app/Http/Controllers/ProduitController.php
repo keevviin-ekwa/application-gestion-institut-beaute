@@ -110,9 +110,11 @@ class ProduitController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Produit $produit)
+    public function destroy($id)
     {
+        $produit=Produit::find($id);
         $produit->delete();
+        return redirect('Produits.produit')->with('Danger','Produit supprimé avec succès');
 
     }
 }

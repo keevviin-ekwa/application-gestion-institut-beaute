@@ -2,7 +2,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Ajouter un produit</h1>
+    <x-adminlte-info-box id="myInfoBox" title="Ajouter un produit" .../>
 @stop
 
 @section('content')
@@ -11,7 +11,7 @@
         <div class="row">
             <x-adminlte-input class="rounded-0" name="libelle" label="Designation *" placeholder="designation..."
                                  value="{{$produit->libelle}}"             fgroup-class="col-md-6" disable-feedback/>
-             <x-adminlte-textarea  value="{{$produit->description}}"  class="rounded-0" fgroup-class="col-md-6" label="Description *" name="description" placeholder="description..."/>
+            <x-adminlte-textarea    class="rounded-0" fgroup-class="col-md-6" label="Description *" name="description" placeholder="description...">{{$produit->description}}</x-adminlte-textarea>
          </div>
          <div class="row">
              <x-adminlte-input class="rounded-0" type="area" name="quantite" label="Quantite *" placeholder="placeholder"
