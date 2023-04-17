@@ -8,7 +8,7 @@
                 <a href="#step-1">
                     <button class="step-trigger">
                         <span class="bs-stepper-circle">1</span>
-                        <span class="bs-stepper-label">Informations du client</span>
+                        <span class="bs-stepper-label">Sélectioner un Client</span>
                     </button>
                 </a>
             </div>
@@ -40,10 +40,30 @@
         </div>
         <div class="bs-stepper-content" >
 {{$currentStep}}
+            {{}}
                 <div id="test-l-1" class="{{ $currentStep != 1 ? 'd-none' : '' }}" id="step-1">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Nom du client</label>
-                        <input type="text" wire:keydown="search" wire:model="name" class="form-control" id="exampleInputEmail1" placeholder="Enter email" />
+                        @section('plugins.Select2', true)
+                        @php
+                            $config = [
+                                "title" => "Sélectionner le client...",
+                                "liveSearch" => true,
+                                "liveSearchPlaceholder" => "Rechercher...",
+                                "showTick" => true,
+                                "actionsBox" => true,
+                            ];
+                        @endphp
+                        <x-adminlte-select2 id="optionsCategory" name="optionsClienst" label="Client"
+                                       wire:model="name"   language="FrenchTranslation"    label-class="text-primary" :config="$config">
+                            <x-slot name="prependSlot">
+                                <div class="input-group-text bg-gradient-primary">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            </x-slot>
+                            @foreach($clients as $client)
+                                <option value="{{$client->id}}">{{$client->nom}}</option>
+                            @endforeach
+                        </x-adminlte-select2>
                     </div>
                     <button class="btn btn-primary" wire:click="firstStepSubmit" >Suivant</button>
                 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Role;
 use App\Models\User;
 use Livewire\Component;
 
@@ -18,8 +19,10 @@ class Wizard extends Component
      */
     public function render()
     {
-        $this->user=User::all();
-        return view('livewire.wizard');
+        $role=Role::where('libelle','Client')->first();
+        $this->user=User::where('role_id',$role->id)->get();
+
+        return view('livewire.wizard',['clients'=>$this->user]);
     }
 
     public function search(){
